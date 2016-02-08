@@ -205,13 +205,9 @@ public class JAASLoginModule implements LoginModule {
      *
      * @return
      */
-    @Autowired
-    private UserRoleFetcher userRoleFetcher;
     private List<String> getRoles() {
-
-
         List<String> roleList = new ArrayList<String>();
-        //UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
+        UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
         for (UserRoles role : userRoleFetcher.getRoles(username)) {
             roleList.add(role.getRole());
         }
