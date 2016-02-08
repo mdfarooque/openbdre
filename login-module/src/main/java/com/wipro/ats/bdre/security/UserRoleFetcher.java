@@ -32,7 +32,6 @@ import java.util.List;
 /**
  * Created by arijit on 26-02-2015.
  */
-
 @Component
 public class UserRoleFetcher extends MetadataAPIBase {
     private static final Logger LOGGER = Logger.getLogger(UserRoleFetcher.class);
@@ -40,11 +39,11 @@ public class UserRoleFetcher extends MetadataAPIBase {
     @Autowired
     private UsersDAO usersDAO;
 
-    /*public UserRoleFetcher() {
+    public UserRoleFetcher() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
         AutowireCapableBeanFactory acbFactory = context.getAutowireCapableBeanFactory();
         acbFactory.autowireBean(this);
-    }*/
+    }
 //    public UserRoleFetcher(String env) {
 //
 //        this.env = env;

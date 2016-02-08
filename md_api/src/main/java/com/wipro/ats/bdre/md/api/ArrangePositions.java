@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,12 +33,13 @@ import java.util.Map;
 /**
  * Created by RI294200 on 10/6/2015.
  */
+@Component
 public class ArrangePositions extends MetadataAPIBase {
-    public ArrangePositions() {
+   /* public ArrangePositions() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
         AutowireCapableBeanFactory acbFactory = context.getAutowireCapableBeanFactory();
         acbFactory.autowireBean(this);
-    }
+    }*/
 
     private static final Logger LOGGER = Logger.getLogger(ArrangePositions.class);
 

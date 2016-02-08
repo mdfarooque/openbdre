@@ -53,6 +53,8 @@ public class ArrangePositionsTest {
     WorkflowTypeDAO workflowTypeDAO;
     @Autowired
     PropertiesDAO propertiesDAO;
+    @Autowired
+    ArrangePositions arrangePositions;
 
     @Test
     public void testGetListPositionInfo() throws Exception {
@@ -70,7 +72,7 @@ public class ArrangePositionsTest {
             BusDomain busDomain = busDomainDAO.get(1);
             ProcessType parentProcessType = processTypeDAO.get(1);
             ProcessType childProcessType = processTypeDAO.get(12);
-            ArrangePositions arrangePositions = new ArrangePositions();
+            //ArrangePositions arrangePositions = new ArrangePositions();
             WorkflowType parentWorkflowType = workflowTypeDAO.get(0);
             WorkflowType childWorkflowType = workflowTypeDAO.get(1);
 

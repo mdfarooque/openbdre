@@ -19,6 +19,7 @@ import com.wipro.ats.bdre.md.api.base.MetadataAPIBase;
 import com.wipro.ats.bdre.md.beans.PositionsInfo;
 import com.wipro.ats.bdre.md.rest.RestWrapper;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,8 @@ import java.util.Map;
 public class ArrangePositionsAPI extends MetadataAPIBase {
     private static final Logger LOGGER = Logger.getLogger(ArrangePositionsAPI.class);
 
+    @Autowired
+    private ArrangePositions arrangePositions;
     /**
      * This method calls proc GetSubProcesses and returns a record corresponding to the processid passed.
      *
@@ -52,7 +55,7 @@ public class ArrangePositionsAPI extends MetadataAPIBase {
             @PathVariable("id") Integer processId, Principal principal
     ) {
 
-        ArrangePositions arrangePositions = new ArrangePositions();
+        //ArrangePositions arrangePositions = new ArrangePositions();
         Map<String, PositionsInfo> positionsInfoList = arrangePositions.getListPositionInfo(processId);
         LOGGER.info("Record with ID:" + processId + " arranged by User:" + principal.getName());
         RestWrapper restWrapper = new RestWrapper(positionsInfoList, RestWrapper.OK);

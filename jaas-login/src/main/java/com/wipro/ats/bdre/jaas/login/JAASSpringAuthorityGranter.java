@@ -16,7 +16,6 @@ package com.wipro.ats.bdre.jaas.login;
 
 import com.wipro.ats.bdre.md.beans.table.UserRoles;
 import com.wipro.ats.bdre.security.UserRoleFetcher;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.Principal;
 import java.util.HashSet;
@@ -37,11 +36,9 @@ public class JAASSpringAuthorityGranter implements org.springframework.security.
      *
      * @return roleSet
      */
-    @Autowired
-    private UserRoleFetcher userRoleFetcher;
     private Set<String> getRoles(String username) {
         HashSet<String> roleSet = new HashSet<String>();
-        //UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
+        UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
         for (UserRoles role : userRoleFetcher.getRoles(username)) {
             roleSet.add(role.getRole());
         }
