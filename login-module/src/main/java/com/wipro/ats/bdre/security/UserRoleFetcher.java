@@ -40,11 +40,11 @@ public class UserRoleFetcher extends MetadataAPIBase {
     @Autowired
     private UsersDAO usersDAO;
 
-    public UserRoleFetcher() {
+    /*public UserRoleFetcher() {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
         AutowireCapableBeanFactory acbFactory = context.getAutowireCapableBeanFactory();
         acbFactory.autowireBean(this);
-    }
+    }*/
 //    public UserRoleFetcher(String env) {
 //
 //        this.env = env;

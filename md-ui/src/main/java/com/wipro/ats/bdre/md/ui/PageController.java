@@ -17,6 +17,7 @@ import com.wipro.ats.bdre.md.api.GetProcess;
 import com.wipro.ats.bdre.md.beans.ProcessInfo;
 import com.wipro.ats.bdre.wgen.Workflow;
 import com.wipro.ats.bdre.wgen.WorkflowPrinter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +37,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/pages")
 public class PageController {
+
+    @Autowired
+    private WorkflowPrinter workflowPrinter;
+    @Autowired
+    private GetProcess getProcess;
+
     @RequestMapping(value = "/{page}.page", method = RequestMethod.GET)
     public String welcome(@PathVariable("page") String page) {
         return page;
@@ -50,8 +57,8 @@ public class PageController {
     @RequestMapping(value = "/workflow/{pid}.page", method = RequestMethod.GET)
     @ResponseBody
     public String getWorkflowDot(@PathVariable("pid") String pid) {
-        List<ProcessInfo> processInfos = new GetProcess().execute(new String[]{"--parent-process-id", pid});
-        Workflow workflow = new WorkflowPrinter().execute(processInfos, "workflow-" + pid);
+        List<ProcessInfo> processInfos = getProcess.execute(new String[]{"--parent-process-id", pid});
+        Workflow workflow = workflowPrinter.execute(processInfos, "workflow-" + pid);
         return workflow.getDot().toString();
     }
 
@@ -59,8 +66,8 @@ public class PageController {
     @ResponseBody
     public String getDashboardDot(@PathVariable("pid") String pid, @PathVariable("ieid") String ieid) {
 
-        List<ProcessInfo> processInfos = new GetProcess().execInfo(new String[]{"--parent-process-id", pid, "--instance-exec-id", ieid});
-        Workflow workflow = new WorkflowPrinter().execInfo(processInfos, "workflow-" + pid);
+        List<ProcessInfo> processInfos = getProcess.execInfo(new String[]{"--parent-process-id", pid, "--instance-exec-id", ieid});
+        Workflow workflow = workflowPrinter.execInfo(processInfos, "workflow-" + pid);
         return workflow.getDot().toString();
 
     }
@@ -68,8 +75,8 @@ public class PageController {
     @RequestMapping(value = "/workflowxml/{pid}.page", method = RequestMethod.GET)
     @ResponseBody
     public String getWorkflowXML(@PathVariable("pid") String pid) {
-        List<ProcessInfo> processInfos = new GetProcess().execute(new String[]{"--parent-process-id", pid});
-        Workflow workflow = new WorkflowPrinter().execute(processInfos, "workflow-" + pid);
+        List<ProcessInfo> processInfos = getProcess.execute(new String[]{"--parent-process-id", pid});
+        Workflow workflow = workflowPrinter.execute(processInfos, "workflow-" + pid);
         return workflow.getXml().toString();
     }
 

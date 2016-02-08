@@ -18,12 +18,14 @@ import com.wipro.ats.bdre.exception.MetadataException;
 import com.wipro.ats.bdre.md.api.GetProperties;
 import com.wipro.ats.bdre.md.beans.ProcessInfo;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
  * Created by arijit on 12/20/14.
  */
+@Component
 public class WorkflowPrinter {
     private static final Logger LOGGER = Logger.getLogger(WorkflowPrinter.class);
     //Add this map for future step chain(to determine the next step of a subprocess)
@@ -61,6 +63,7 @@ public class WorkflowPrinter {
         for (ProcessInfo processInfo : processInfos) {
             tempProcessInfos.put(processInfo.getProcessId(), processInfo);
         }
+        System.out.println("TempProcessInfos ::: "+tempProcessInfos);
         //Populate the tree
         for (ProcessInfo processInfo : processInfos) {
             LOGGER.debug("processing " + processInfo);
@@ -71,9 +74,11 @@ public class WorkflowPrinter {
             String[] children = processInfo.getNextProcessIds().split(",");
             for (String child : children) {
                 LOGGER.debug("Analyzing child: " + child);
+                System.out.println("Analyzing child: " + child);
                 Integer childKey = new Integer(child);
                 NodeCollection childNodeCollection = uniqNodeCollectionTreeMap.get(childKey);
                 if (childNodeCollection == null) {
+                    System.out.println("Child key:: "+tempProcessInfos.get(childKey));
                     childNodeCollection = new NodeCollection(tempProcessInfos.get(childKey));
                 }
                 childNodeCollection.addParent(nodeCollection, nodeMaintainer);

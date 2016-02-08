@@ -27,6 +27,7 @@ import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.VFS;
 import org.apache.commons.vfs2.impl.DefaultFileMonitor;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Properties;
@@ -106,11 +107,13 @@ public class FileMonRunnableMain extends BaseStructure {
         f2SFileMonitorMain.execute(args);
     }
 
+    @Autowired
+    private GetProcess getProcess;
     private void execute(String[] params) {
         try {
             CommandLine commandLine = getCommandLine(params, PARAMS_STRUCTURE);
 
-            GetProcess getProcess = new GetProcess();
+           // GetProcess getProcess = new GetProcess();
             List<ProcessInfo> subProcessList = getProcess.getSubProcesses(params);
             subProcessId = subProcessList.get(0).getProcessId().toString();
             LOGGER.info("subProcessId="+subProcessId);

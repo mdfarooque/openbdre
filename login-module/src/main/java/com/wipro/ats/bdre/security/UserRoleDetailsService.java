@@ -16,6 +16,7 @@ package com.wipro.ats.bdre.security;
 
 import com.wipro.ats.bdre.md.beans.table.UserRoles;
 import com.wipro.ats.bdre.md.beans.table.Users;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.User;
@@ -30,10 +31,12 @@ import java.util.List;
  * Created by AR288503 on 9/5/2015.
  */
 public class UserRoleDetailsService implements UserDetailsService {
+    @Autowired
+    private UserRoleFetcher userRoleFetcher;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
+        //UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
         Users users = userRoleFetcher.getUser(username);
         List<UserRoles> userRoles = userRoleFetcher.getRoles(username);
         for (UserRoles role : userRoles) {

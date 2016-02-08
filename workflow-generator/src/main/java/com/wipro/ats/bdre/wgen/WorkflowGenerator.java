@@ -16,11 +16,14 @@ package com.wipro.ats.bdre.wgen;
 
 
 import com.wipro.ats.bdre.BaseStructure;
+import com.wipro.ats.bdre.md.StaticContextAccessor;
 import com.wipro.ats.bdre.md.api.GetProcess;
+import com.wipro.ats.bdre.md.api.RegisterFile;
 import com.wipro.ats.bdre.md.beans.ProcessInfo;
 import org.apache.commons.cli.CommandLine;
 import org.apache.log4j.Logger;
 import org.apache.oozie.cli.OozieCLI;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -30,6 +33,7 @@ import java.util.List;
  * Created by arijit on 12/24/14.
  */
 public class WorkflowGenerator extends BaseStructure {
+
     private static final Logger LOGGER = Logger.getLogger(WorkflowGenerator.class);
     private static final String[][] PARAMS_STRUCTURE = {
             {"p", "parent-process-id", "Process Id of the process to begin"},
@@ -50,9 +54,10 @@ public class WorkflowGenerator extends BaseStructure {
         LOGGER.debug("Output file " + outputFile);
 
         //Fetching process details from metadata using API calls
-        List<ProcessInfo> processInfos = new GetProcess().execute(new String[]{"--parent-process-id", pid});
+        List<ProcessInfo> processInfos = StaticContextAccessor.getBean(GetProcess.class).execute(new String[]{"--parent-process-id", pid});
         LOGGER.info("Workflow Type Id is " + processInfos.get(0).getWorkflowId() + " for pid=" + processInfos.get(0).getProcessId());
-        Workflow workflow = new WorkflowPrinter().execute(processInfos, "workflow-" + pid);
+        Workflow workflow = StaticContextAccessor.getBean(WorkflowPrinter.class).execute(processInfos, "workflow-" + pid);
+        //Workflow workflow = new WorkflowPrinter().execute(processInfos, "workflow-" + pid);
         if (processInfos.get(0).getWorkflowId() == 1) {
 
             String workflowXML = workflow.getXml().toString();

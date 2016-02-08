@@ -19,6 +19,7 @@ import com.wipro.ats.bdre.md.beans.table.Users;
 import com.wipro.ats.bdre.security.UserRoleFetcher;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.*;
@@ -204,11 +205,13 @@ public class JAASLoginModule implements LoginModule {
      *
      * @return
      */
+    @Autowired
+    private UserRoleFetcher userRoleFetcher;
     private List<String> getRoles() {
 
 
         List<String> roleList = new ArrayList<String>();
-        UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
+        //UserRoleFetcher userRoleFetcher = new UserRoleFetcher();
         for (UserRoles role : userRoleFetcher.getRoles(username)) {
             roleList.add(role.getRole());
         }

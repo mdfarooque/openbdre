@@ -190,6 +190,8 @@ public class NodeCollection {
 
             for (int i = 0; i < parents.size(); i++) {      /*Traversing parents of current node*/
                 NodeCollection parent = parents.get(i);     //Choosing parents
+                System.out.println("Parent:: "+parent);
+                System.out.println("Parent get action node:: "+parent.getActionNode());
                 parent.getActionNode().setToNode(joinNode);
 
 
