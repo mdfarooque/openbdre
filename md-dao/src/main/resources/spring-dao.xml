@@ -51,7 +51,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     <bean id="metadataPersistenceTrigger" class="com.wipro.ats.bdre.md.triggers.MetadataPersistenceTrigger"/>
 
     <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${hibernate.connection.driver_class}"/>
         <property name="url" value="${hibernate.connection.url}"/>
         <property name="username" value="${hibernate.connection.username}"/>
