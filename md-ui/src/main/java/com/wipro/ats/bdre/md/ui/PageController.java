@@ -39,8 +39,6 @@ import java.util.List;
 public class PageController {
 
     @Autowired
-    private WorkflowPrinter workflowPrinter;
-    @Autowired
     private GetProcess getProcess;
 
     @RequestMapping(value = "/{page}.page", method = RequestMethod.GET)
@@ -58,7 +56,7 @@ public class PageController {
     @ResponseBody
     public String getWorkflowDot(@PathVariable("pid") String pid) {
         List<ProcessInfo> processInfos = getProcess.execute(new String[]{"--parent-process-id", pid});
-        Workflow workflow = workflowPrinter.execute(processInfos, "workflow-" + pid);
+        Workflow workflow = new WorkflowPrinter().execute(processInfos, "workflow-" + pid);
         return workflow.getDot().toString();
     }
 
@@ -67,7 +65,7 @@ public class PageController {
     public String getDashboardDot(@PathVariable("pid") String pid, @PathVariable("ieid") String ieid) {
 
         List<ProcessInfo> processInfos = getProcess.execInfo(new String[]{"--parent-process-id", pid, "--instance-exec-id", ieid});
-        Workflow workflow = workflowPrinter.execInfo(processInfos, "workflow-" + pid);
+        Workflow workflow = new WorkflowPrinter().execInfo(processInfos, "workflow-" + pid);
         return workflow.getDot().toString();
 
     }
@@ -76,7 +74,7 @@ public class PageController {
     @ResponseBody
     public String getWorkflowXML(@PathVariable("pid") String pid) {
         List<ProcessInfo> processInfos = getProcess.execute(new String[]{"--parent-process-id", pid});
-        Workflow workflow = workflowPrinter.execute(processInfos, "workflow-" + pid);
+        Workflow workflow = new WorkflowPrinter().execute(processInfos, "workflow-" + pid);
         return workflow.getXml().toString();
     }
 

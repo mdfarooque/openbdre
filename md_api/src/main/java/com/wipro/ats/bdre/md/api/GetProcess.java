@@ -35,12 +35,6 @@ import java.util.List;
  */
 @Component
 public class GetProcess extends MetadataAPIBase {
-   /* public GetProcess() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-dao.xml");
-        AutowireCapableBeanFactory acbFactory = context.getAutowireCapableBeanFactory();
-        acbFactory.autowireBean(this);
-    }*/
-
     private static final Logger LOGGER = Logger.getLogger(GetProcess.class);
     private static final String[][] PARAMS_STRUCTURE = {
             {"p", "parent-process-id", "Parent process id for a given workflow"}
